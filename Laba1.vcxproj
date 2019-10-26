@@ -20,26 +20,38 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Camera.cpp" />
-    <ClCompile Include="Color.cpp" />
-    <ClCompile Include="ColorStorage.cpp" />
+    <ClCompile Include="Lerp.cpp" />
+    <ClCompile Include="Data.cpp" />
+    <ClCompile Include="Display.cpp" />
     <ClCompile Include="FPSCounter.cpp" />
+    <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GraphicObject.cpp" />
+    <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
+    <ClCompile Include="Material.cpp" />
+    <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Simulation.cpp" />
     <ClCompile Include="Time.cpp" />
-    <ClCompile Include="Timer.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="basicOpengl.h" />
     <ClInclude Include="Camera.h" />
-    <ClInclude Include="Color.h" />
-    <ClInclude Include="ColorStorage.h" />
+    <ClInclude Include="Lerp.h" />
+    <ClInclude Include="Data.h" />
+    <ClInclude Include="Display.h" />
     <ClInclude Include="FPSCounter.h" />
+    <ClInclude Include="GameObject.h" />
     <ClInclude Include="GraphicObject.h" />
+    <ClInclude Include="Light.h" />
+    <ClInclude Include="Material.h" />
+    <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Simulation.h" />
     <ClInclude Include="Time.h" />
-    <ClInclude Include="Timer.h" />
+    <ClInclude Include="Vertex.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{93699C04-A7CB-4BCB-A8B1-AC1D78A45C8F}</ProjectGuid>
-    <RootNamespace>OpenGL</RootNamespace>
+    <RootNamespace>Laba1</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
     <ProjectName>OpenGL</ProjectName>
   </PropertyGroup>
@@ -94,11 +106,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>ProjectDir\..\..\freeglut\include</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)freeglut\include;$(ProjectDir)include;$(ProjectDir)glew\include\GL</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <AdditionalDependencies>opengl32.lib;glu32.lib;freeglut.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>ProjectDir\..\..\freeglut\lib</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>$(ProjectDir)freeglut\lib;$(ProjectDir)glew\lib\Release\Win32</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -106,7 +118,11 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)freeglut\include;$(ProjectDir)include;$(ProjectDir)glew\include\GL</AdditionalIncludeDirectories>
     </ClCompile>
+    <Link>
+      <AdditionalLibraryDirectories>$(ProjectDir)freeglut\lib;$(ProjectDir)glew\lib\Release\x64</AdditionalLibraryDirectories>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -115,13 +131,13 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <AdditionalIncludeDirectories>ProjectDir\..\freeglut\include;ProjectDir\..;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)freeglut\include;$(ProjectDir)include;$(ProjectDir)glew\include\GL</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;freeglut.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>ProjectDir\..\freeglut\lib</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;freeglut.lib;glew32.lib</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)freeglut\lib;$(ProjectDir)glew\lib\Release\Win32</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -131,10 +147,12 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
+      <AdditionalIncludeDirectories>$(ProjectDir)freeglut\include;$(ProjectDir)include;$(ProjectDir)glew\include\GL</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
+      <AdditionalLibraryDirectories>$(ProjectDir)freeglut\lib;$(ProjectDir)glew\lib\Release\x64</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
