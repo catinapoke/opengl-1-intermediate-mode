@@ -1,5 +1,15 @@
 ﻿#include "Mesh.h"
 
+void handleSeparator(char separator, char received)
+{
+	if (received != separator)
+	{
+		char str[26];
+		sprintf_s(str, "Expected '%c', but got '%c'", separator, received);
+		throw std::exception(str);
+	}
+}
+
 Mesh::Mesh()
 {
 }
@@ -109,8 +119,6 @@ void Mesh::load(const char* filename)
 
 	printf("Vertex count - %i\n Indices count - %i \n\n", vertexCount, indices.size());
 
-	// Fill vertices vector with parsed data
-
 	int k = 0;
 	for (auto it = faces.begin(); it != faces.end(); it++)
 	{
@@ -141,7 +149,7 @@ void Mesh::LoadBuffers()
 	glBindBuffer(GL_ARRAY_BUFFER, BO[0]);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BO[1]);
 
-	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) * vertexCount, vertices, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(Vertex) *vertexCount, vertices, GL_STATIC_DRAW);
 	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(GLuint) * indices.size(), indices.data(), GL_STATIC_DRAW);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
@@ -152,17 +160,21 @@ void Mesh::draw()
 {
 	glBindBuffer(GL_ARRAY_BUFFER, BO[0]);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, BO[1]);
+	glClientActiveTexture(GL_TEXTURE0);
 
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glEnableClientState(GL_NORMAL_ARRAY);
+	glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glVertexPointer(3, GL_FLOAT, sizeof(Vertex), (GLvoid*)offsetof(Vertex, coord));
 	glNormalPointer(GL_FLOAT, sizeof(Vertex), (GLvoid*)offsetof(Vertex, normal));
+	glTexCoordPointer(3, GL_FLOAT, sizeof(Vertex), (GLvoid*)offsetof(Vertex, textureCoord));
 
 	glDrawElements(GL_TRIANGLES, indices.size(), GL_UNSIGNED_INT, 0);
 
 	glDisableClientState(GL_VERTEX_ARRAY);
 	glDisableClientState(GL_NORMAL_ARRAY);
+	glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);

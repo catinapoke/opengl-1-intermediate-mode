@@ -1,9 +1,6 @@
 #include "FPSCounter.h"
-FPSCounter::FPSCounter() : FPSCounter("DefaultName")
-{
-}
 
-FPSCounter::FPSCounter(std::string TitleName) : time(0), frames(0), title(TitleName)
+FPSCounter::FPSCounter(void (*_updateFps)(), std::string& _fpsStr) : time(0), frames(0), updateFps(_updateFps), fpsStr(_fpsStr)
 {
 }
 
@@ -25,9 +22,8 @@ void FPSCounter::AddFrame()
 
 void FPSCounter::UpdateFPS(int fps)
 {
-	std::string _title;
 	char* buffer = new char[10];
 	_itoa_s(fps, buffer, 10, 10);
-	_title = title + " [" + buffer + "] FPS";
-	glutSetWindowTitle(_title.c_str());
+	fpsStr = "[" + std::string(buffer) + "] FPS";
+	updateFps();
 }

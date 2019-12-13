@@ -13,7 +13,7 @@ template<size_t SIZE, class T> inline size_t array_size(T(&arr)[SIZE]) {
 
 void OpenGLInit(int argc, char** argv)
 {
-	// GLUT library initialisation 
+	// GLUT library initialisation
 	glutInit(&argc, argv);
 	// Display initialisation
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH | GLUT_MULTISAMPLE);

@@ -21,32 +21,36 @@ using namespace rapidjson;
 
 using vec3 = glm::vec3;
 using vec4 = glm::vec4;
-
+//using namespace glm;
+// КЛАСС ДЛЯ РАБОТЫ С ИСТОЧНИКОМ СВЕТА
 class Light
 {
 public:
-	// Constructors
+	// конструкторы
 	Light();
 	Light(glm::vec3 position);
 	Light(float x, float y, float z);
 	Light(const char* filename);
 
-	// Set light attributes
+	// задание различных параметров источника света   void setPosition (vec3 position);
 	void setAmbient(glm::vec4 color);
 	void setDiffuse(glm::vec4 color);
 	void setSpecular(glm::vec4 color);
 	void setPosition(glm::vec4 pos);
 	void setPosition(glm::vec3 pos);
-	
-	// Load light attributes from file
 	void load(const char* jsonfile);
-	// Apply light with enum (like GL_LIGHT0)
 	void apply(GLenum light);
+	// установка всех параметров источника света с заданным номером
+	// данная функция должна вызываться после установки камеры,
+	// т.к. здесь устанавливается позиция источника света   void apply (GLenum LightNumber = GL_LIGHT0);
 
 private:
-	// Light attributes
+	// позиция источника света
 	glm::vec4 position;
+	// фоновая составляющая источника света
 	glm::vec4 ambient;
+	// диффузная составляющая
 	glm::vec4 diffuse;
+	// зеркальная составляющая
 	glm::vec4 specular;
 };

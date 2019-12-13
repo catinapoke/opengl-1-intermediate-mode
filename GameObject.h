@@ -5,70 +5,68 @@
 using ivec2 = glm::ivec2;
 using vec3 = glm::vec3;
 
-// класс‐перечисление для указания направления перемещения
 enum class MoveDirection
 {
 	stop, left, right, up, down
 };
 
-// КЛАСС ДЛЯ ПРЕДСТАВЛЕНИЯ ИГРОВОГО ОБЪЕКТА
+enum class GameObjectType
+{
+	LIGHT_OBJECT = 0,
+	HEAVY_OBJECT = 1,
+	BORDER_OBJECT,
+	MAIN_HERO_OBJECT,
+	PORTAL_1_OBJECT,
+	PORTAL_2_OBJECT,
+	MONSTER_OBJECT,
+	BOMB_OBJECT,
+	MAX_OBJECT_COUNT
+};
+
 class GameObject
 {
 public:
-	enum class Type
-	{
-		LightCube,
-		HeavyCube,
-		Border,
-		Player,
-		Empty
-	};
-	// конструктор
-	GameObject(Type type = Type::Empty);
+	GameObject();
+	GameObject(ivec2 position, GameObjectType type);
+	virtual ~GameObject() {};
 
-	GameObject(ivec2 position, Type type);
-
-	// установка используемого графического объекта
-	// происходит копирование переданного объекта для последующего использования
+	// Copy graphicObject
 	void setGraphicObject(const GraphicObject& graphicObject);
 
-	// установка логических координат
-	// (два перегруженных метода для удобства)
+	// Set position
 	void setPosition(int x, int y);
 	void setPosition(ivec2 position);
+	void Rotate(int deltaDegree);
 
-	// получение текущих логических координат
-	ivec2 getPosition();
+	// Get position
+	ivec2 getPosition(); // Logical position
 	vec3 GetGraphicPosition();
 
-	Type GetType();
+	// Game object type
+	GameObjectType GetType();
 
-	// начать движение в выбранном направлении с указанной скоростью (клеток в секунду)
+	// Move in particular direction
 	void move(MoveDirection direction, float speed = 3.0f);
-	// проверка на то, что объект движется
-	bool isMoving();// симуляция игрового объекта (перемещение при необходимости)
-	// метод вызывается непрерывно в функции simulation
-	void update(float sec);
+	bool isMoving();
+	bool isTransparent();
 
-	
-
-	// вывод игрового объекта на экран
+	// Object simulation
+	virtual void update(float sec);
 	void draw(void);
 
-private:
-	// логические координаты игрового объекта
+	void SetOnStopCallback(void (*callbackFunction)(GameObject*, ivec2));
+	void UnsetOnStopCallback();
+
+protected:
 	ivec2 position;
 	ivec2 destination;
-	// состояние объекта (заданное направление перемещения)
-	MoveDirection condition;
-	// прогресс в перемещении (от 0.0 до 1.0)
 	float progress;
-	// скорость перемещения
 	float speed;
-	GameObject::Type objectType;
+	MoveDirection condition;
 
-	// графический объект (для вывода на экран)
+	GameObjectType objectType;
 	GraphicObject graphicObject;
+	void (*OnObjectStop)(GameObject*, ivec2) = nullptr;
 
 	vec3 graphicPositionToGame(ivec2 pos);
 };

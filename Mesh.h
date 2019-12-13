@@ -16,7 +16,6 @@ public:
 	Mesh();
 	Mesh(Mesh* m);
 	Mesh(const char* filename);
-
 	// Load mesh from file
 	void load(const char* filename);
 	void draw();

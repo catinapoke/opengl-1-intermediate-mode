@@ -19,7 +19,9 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Bomb.cpp" />
     <ClCompile Include="Camera.cpp" />
+    <ClCompile Include="GameObjectFactory.cpp" />
     <ClCompile Include="Lerp.cpp" />
     <ClCompile Include="Data.cpp" />
     <ClCompile Include="Display.cpp" />
@@ -28,14 +30,22 @@
     <ClCompile Include="GraphicObject.cpp" />
     <ClCompile Include="Light.cpp" />
     <ClCompile Include="Main.cpp" />
-    <ClCompile Include="Material.cpp" />
     <ClCompile Include="Mesh.cpp" />
+    <ClCompile Include="Monster.cpp" />
+    <ClCompile Include="PathFinder.cpp" />
+    <ClCompile Include="PhongMaterial.cpp" />
+    <ClCompile Include="PhongMaterialWithTexture.cpp" />
+    <ClCompile Include="Portal.cpp" />
     <ClCompile Include="Simulation.cpp" />
+    <ClCompile Include="Sprite.cpp" />
+    <ClCompile Include="Texture.cpp" />
     <ClCompile Include="Time.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="basicOpengl.h" />
+    <ClInclude Include="Bomb.h" />
     <ClInclude Include="Camera.h" />
+    <ClInclude Include="GameObjectFactory.h" />
     <ClInclude Include="Lerp.h" />
     <ClInclude Include="Data.h" />
     <ClInclude Include="Display.h" />
@@ -45,7 +55,14 @@
     <ClInclude Include="Light.h" />
     <ClInclude Include="Material.h" />
     <ClInclude Include="Mesh.h" />
+    <ClInclude Include="Monster.h" />
+    <ClInclude Include="PathFinder.h" />
+    <ClInclude Include="PhongMaterial.h" />
+    <ClInclude Include="PhongMaterialWithTexture.h" />
+    <ClInclude Include="Portal.h" />
     <ClInclude Include="Simulation.h" />
+    <ClInclude Include="Sprite.h" />
+    <ClInclude Include="Texture.h" />
     <ClInclude Include="Time.h" />
     <ClInclude Include="Vertex.h" />
   </ItemGroup>
@@ -107,10 +124,11 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>$(ProjectDir)freeglut\include;$(ProjectDir)include;$(ProjectDir)glew\include\GL</AdditionalIncludeDirectories>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;freeglut.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)freeglut\lib;$(ProjectDir)glew\lib\Release\Win32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;freeglut.lib;glew32.lib;DevIL.lib;ILU.lib;ILUT.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)freeglut\lib;$(ProjectDir)glew\lib\Release\Win32;$(ProjectDir)include\pugixml;$(ProjectDir)lib\ILx86\Release;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -136,8 +154,8 @@
     <Link>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <AdditionalDependencies>opengl32.lib;glu32.lib;freeglut.lib;glew32.lib</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(ProjectDir)freeglut\lib;$(ProjectDir)glew\lib\Release\Win32</AdditionalLibraryDirectories>
+      <AdditionalDependencies>opengl32.lib;glu32.lib;freeglut.lib;glew32.lib;DevIL.lib;ILU.lib;ILUT.lib;</AdditionalDependencies>
+      <AdditionalLibraryDirectories>$(ProjectDir)freeglut\lib;$(ProjectDir)glew\lib\Release\Win32;$(ProjectDir)include\pugixml;$(ProjectDir)lib\ILx86\Release;</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

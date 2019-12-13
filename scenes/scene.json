@@ -1,0 +1,111 @@
+{
+  "AllObjectsDescription": {
+    "LightObject": {
+      "Mesh": { "FileName": "HighPolyChamferBox.obj" },
+      "Material": {
+        "Type": "PhongMaterialWithTexture",
+        "Texture": { "FileName": "light_object.png" },
+        "PhongParameters": {
+          "diffuse": [1.0, 1.0, 0.6, 1.0],
+          "ambient": [0.4, 0.4, 0.2, 1.0],
+          "specular": [1.0, 1.0, 1.0, 1.0],
+          "emission": [0.0, 0.0, 0.0, 1.0],
+          "shininess": 64.0
+        }
+      }
+    },
+    "HeavyObject": {
+      "Mesh": { "FileName": "HighPolyChamferBox.obj" },
+      "Material": {
+        "Type": "PhongMaterialWithTexture",
+        "Texture": { "FileName": "heavy_object.png" },
+        "PhongParameters": {
+          "diffuse": [0.7, 0.7, 0.7, 1.0],
+          "ambient": [0.1, 0.1, 0.1, 1.0],
+          "specular": [0.0, 0.0, 0.0, 1.0],
+          "emission": [0.0, 0.0, 0.0, 1.0],
+          "shininess": 64.0
+        }
+      }
+    },
+    "BorderObject": {
+      "Mesh": { "FileName": "HighPolyBox.obj" },
+      "Material": {
+        "Type": "PhongMaterialWithTexture",
+        "Texture": { "FileName": "border_object.png" },
+        "PhongParameters": {
+          "diffuse": [0.4, 0.4, 0.4, 1.0],
+          "ambient": [0.1, 0.1, 0.1, 1.0],
+          "specular": [0.0, 0.0, 0.0, 1.0],
+          "emission": [0.0, 0.0, 0.0, 1.0],
+          "shininess": 64.0
+        }
+      }
+    },
+    "PlayerObject": {
+      "Mesh": { "FileName": "Sphere.obj" },
+      "Material": {
+        "Type": "SimplePhongMaterial",
+        "PhongParameters": {
+          "diffuse": [0.0, 0.6, 0.6, 1.0],
+          "ambient": [0.0, 0.0, 0.0, 1.0],
+          "specular": [0.0, 0.0, 0.0, 1.0],
+          "emission": [0.0, 0.6, 0.6, 1.0],
+          "shininess": 64.0
+        }
+      }
+    },
+    "BombObject": {
+    "Mesh": { "FileName": "Sphere.obj" },
+    "Material": {
+      "Type": "SimplePhongMaterial",
+      "PhongParameters": {
+        "diffuse": [0.2, 0.2, 0.2, 1.0],
+        "ambient": [0.0, 0.0, 0.0, 1.0],
+        "specular": [1.0, 1.0, 1.0, 1.0],
+        "emission": [0.0, 0.0, 0.0, 1.0],
+        "shininess": 64.0
+        }
+      }
+    },
+    "Portal_1_Object": {
+      "Mesh": { "FileName": "PortalBox.obj" },
+      "Material": {
+        "Type": "SimplePhongMaterial",
+        "PhongParameters": {
+          "diffuse": [0.3, 0.3, 0.3, 0.35],
+          "ambient": [0.3, 0.3, 0.3, 1.0],
+          "specular": [0.0, 0.0, 0.0, 1.0],
+          "emission": [0.37, 0.99, 0.16, 1.0],
+          "shininess": 64.0
+        }
+      }
+    },
+    "Portal_2_Object": {
+      "Mesh": { "FileName": "PortalBox.obj" },
+      "Material": {
+        "Type": "SimplePhongMaterial",
+        "PhongParameters": {
+          "diffuse": [0.3, 0.3, 0.3, 0.35],
+          "ambient": [0.3, 0.3, 0.3, 1.0],
+          "specular": [0.0, 0.0, 0.0, 1.0],
+          "emission": [0.99, 0.21, 0.68, 1.0],
+          "shininess": 64.0
+        }
+      }
+    }, 
+   "MonsterObject": {
+     "Mesh": { "FileName": "Sphere.obj" },
+     "Material": {
+       "Type": "SimplePhongMaterial",
+       "PhongParameters": {
+          "diffuse": [0.6, 0.1, 0.1, 1.0],
+          "ambient": [0.0, 0.0, 0.0, 1.0],
+          "specular": [0.0, 0.0, 0.0, 1.0],
+          "emission": [0.6, 0.1, 0.1, 1.0],
+          "shininess": 64.0
+       }
+     }
+   }
+  }
+}

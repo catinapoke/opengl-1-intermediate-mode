@@ -1,12 +1,12 @@
 ﻿#include "GameObject.h"
 
-GameObject::GameObject(Type type): GameObject(ivec2(0.0f), type)
+GameObject::GameObject()
 {
 	condition = MoveDirection::stop;
-	objectType = type;
+	objectType = GameObjectType::MAX_OBJECT_COUNT;
 }
 
-GameObject::GameObject(ivec2 position, Type type) : progress(0.0f), speed(0.0f), destination(ivec2(0, 0))
+GameObject::GameObject(ivec2 position, GameObjectType type) : progress(0.0f), speed(0.0f), destination(ivec2(0, 0))
 {
 	condition = MoveDirection::stop;
 	objectType = type;
@@ -38,12 +38,21 @@ void GameObject::setPosition(ivec2 position)
 	graphicObject.setPosition(graphicPositionToGame(ivec2(position.x, position.y)));
 }
 
+void GameObject::Rotate(int deltaDegree)
+{
+	float random = static_cast<float>(rand()) / static_cast<float>(RAND_MAX) - 0.5f;
+	printf("%f\n", random);
+	float degree = random * 2 * deltaDegree;
+	printf("%f\n", degree);
+	graphicObject.setAngle(graphicObject.getAngle() + degree);
+}
+
 ivec2 GameObject::getPosition()
 {
 	return position;
 }
 
-GameObject::Type GameObject::GetType()
+GameObjectType GameObject::GetType()
 {
 	return objectType;
 }
@@ -75,7 +84,12 @@ void GameObject::move(MoveDirection direction, float speed)
 
 bool GameObject::isMoving()
 {
-	return condition!=MoveDirection::stop;
+	return condition != MoveDirection::stop;
+}
+
+bool GameObject::isTransparent()
+{
+	return graphicObject.isTransparent();
 }
 
 void GameObject::update(float sec)
@@ -89,10 +103,12 @@ void GameObject::update(float sec)
 		if (progress == 1)
 		{
 			condition = MoveDirection::stop;
+			ivec2 previousPos = position;
 			position = destination;
+			if (OnObjectStop != nullptr)
+				OnObjectStop(this, previousPos);
 		}
 	}
-	
 }
 
 vec3 GameObject::GetGraphicPosition()
@@ -108,4 +124,14 @@ vec3 GameObject::graphicPositionToGame(ivec2 pos)
 void GameObject::draw(void)
 {
 	graphicObject.draw();
+}
+
+void GameObject::SetOnStopCallback(void(*callbackFunction)(GameObject*,ivec2))
+{
+	OnObjectStop = callbackFunction;
+}
+
+void GameObject::UnsetOnStopCallback()
+{
+	OnObjectStop = nullptr;
 }

@@ -3,9 +3,6 @@
 #include <cstdio>
 #include <exception>
 #include "glew.h"
-//#include <GL/gl.h>
-//#include <GL/glu.h>
-#include "GL/freeglut.h"
 #include "GLM/glm.hpp"
 #include "GLM/gtc/matrix_transform.hpp"
 #include "GLM/gtc/type_ptr.hpp"

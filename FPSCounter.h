@@ -9,10 +9,11 @@ class FPSCounter
 private:
 	int frames;
 	int time;
-	std::string title;
+	void (*updateFps)();
+	std::string& fpsStr;
 public:
-	FPSCounter();
-	FPSCounter(std::string TitleName);
+	// FPSCounter();
+	FPSCounter(void (*updateFps)(), std::string& fpsStr);
 	void Update(int _time);
 	void AddFrame();
 private:

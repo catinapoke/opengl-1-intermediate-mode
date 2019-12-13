@@ -1,0 +1,85 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+
+<AllObjectsDescription>
+
+	<LightObject>
+		<Mesh FileName="HighPolyChamferBox.obj"/>
+	    	<Material Type="PhongMaterialWithTexture">
+	        	<Texture FileName="light_object.png"/>
+		        <PhongParameters 	
+	        		diffuse="1.0 1.0 0.6 1.0" 
+	                	ambient="0.4 0.4 0.2"
+		                specular="1.0 1.0 1.0"
+	                	emission="0.0 0.0 0.0"
+				shininess="64.0"/>
+		</Material>
+	</LightObject>
+	
+	<HeavyObject>
+		<Mesh FileName="HighPolyChamferBox.obj"/>
+	    	<Material Type="PhongMaterialWithTexture">
+	        	<Texture FileName="heavy_object.png"/>
+		        <PhongParameters 	
+	        		diffuse="0.7 0.7 0.7 1.0" 
+	                	ambient="0.1 0.1 0.1"
+		                specular="0.0 0.0 0.0"
+	                	emission="0.0 0.0 0.0"
+				shininess="64.0"/>
+		</Material>
+	</HeavyObject>
+	
+	<BorderObject>
+		<Mesh FileName="HighPolyBox.obj"/>
+	    	<Material Type="PhongMaterialWithTexture">
+	        	<Texture FileName="border_object.png"/>
+		        <PhongParameters 	
+	        		diffuse="0.4 0.4 0.4 1.0" 
+	                	ambient="0.1 0.1 0.1"
+		                specular="0.0 0.0 0.0"
+	                	emission="0.0 0.0 0.0"
+				shininess="64.0"/>
+		</Material>
+	</BorderObject>
+	
+	<PlayerObject>
+		<Mesh FileName="Sphere.obj"/>
+	    	<Material Type="SimplePhongMaterial">
+		        <PhongParameters 	
+	        		diffuse="0.0 0.6 0.6 1.0" 
+	                	ambient="0.0 0.0 0.0"
+		                specular="0.0 0.0 0.0"
+	                	emission="0.0 0.6 0.6"
+				shininess="64.0"/>
+		</Material>
+	</PlayerObject>
+	
+	<Portal_1_Object>
+		<Mesh FileName="PortalBox.obj"/>
+	    	<Material Type="SimplePhongMaterial">
+		        <PhongParameters 	
+	        		diffuse="0.3 0.3 0.3 0.35" 
+	                	ambient="0.3 0.3 0.3"
+		                specular="0.0 0.0 0.0"
+	                	emission="0.37 0.99 0.16"
+				shininess="64.0"/>
+		</Material>
+	</Portal_1_Object>
+	
+	<Portal_2_Object>
+		<Mesh FileName="PortalBox.obj"/>
+	    	<Material Type="SimplePhongMaterial">
+		        <PhongParameters 	
+	        		diffuse="0.3 0.3 0.3 0.35" 
+	                	ambient="0.3 0.3 0.3"
+		                specular="0.0 0.0 0.0"
+	                	emission="0.99 0.21 0.68"
+				shininess="64.0"/>
+		</Material>
+	</Portal_2_Object>
+
+</AllObjectsDescription>
+
+
+
+
+

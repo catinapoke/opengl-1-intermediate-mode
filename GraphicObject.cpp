@@ -15,11 +15,16 @@ GraphicObject::GraphicObject(vec3& _position, float _angle, vec3& _color = vec3(
 
 GraphicObject::GraphicObject(vec3& _position, float _angle, vec3& _color, Material* material) : GraphicObject(_position, _angle, _color)
 {
-	this->material = new Material(material);
+	this->material = material;
 }
+
 GraphicObject::GraphicObject(vec3& _position, float _angle, vec3& _color, Material* material, Mesh* mesh) : GraphicObject(_position, _angle, _color, material)
 {
 	this->mesh = new Mesh(mesh);
+}
+
+GraphicObject::GraphicObject(Material* material, Mesh* mesh) : GraphicObject(vec3(0), 0, vec3(0), material, mesh)
+{
 }
 
 void GraphicObject::setPosition(vec3& _position)
@@ -35,7 +40,7 @@ vec3 GraphicObject::getPosition()
 
 void GraphicObject::setMaterial(Material* material)
 {
-	this->material = new Material(material);
+	this->material = material;
 }
 
 void GraphicObject::setAngle(float grad)
@@ -59,25 +64,25 @@ vec3 GraphicObject::getColor()
 	return color;
 };
 
+bool GraphicObject::isTransparent()
+{
+	return material->isTransparent();
+}
+
 void GraphicObject::draw()
 {
-	glPushMatrix();
-	glColor3fv(value_ptr(color));
+	glPushMatrix();//кладем в стек
+	//glColor3fv(value_ptr(color));
 	glMultMatrixf(glm::value_ptr(modelMatrix));
-
-	if (material != nullptr)
-	{
+	if (material != nullptr){
 		material->apply();
 	}
-
-	if (mesh != nullptr)
-	{
+	if (mesh != nullptr){
 		mesh->draw();
 	}
-	else
-		glutSolidSphere(1, 50, 50);
-
+		//gluSphere(1, 50, 50);
 	glPopMatrix();
+	Texture::disableAll();// отключаем текстурирование
 };
 
 void GraphicObject::recalculateModelMatrix()

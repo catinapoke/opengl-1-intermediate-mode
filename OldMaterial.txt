@@ -1,0 +1,226 @@
+
+using vec4 = glm::vec4;
+using vec3 = glm::vec3;
+
+// КЛАСС ДЛЯ РАБОТЫ С МАТЕРИАЛОМ
+class MaterialB
+{
+public:
+	// конструктор по умолчанию
+	MaterialB();
+	//конструктор копирования
+	MaterialB(MaterialB* otherMaterial);
+	MaterialB(vec4 ambient, vec4 diffuse, vec4 specular, vec4 emission, float shininess);
+	// конструктор чтения из файла
+	MaterialB(const char* filename);
+	MaterialB(rapidjson::Value& node);
+
+	// задание параметров материала
+	void setAmbient(glm::vec4 color);
+	void setDiffuse(glm::vec4 color);
+	void setSpecular(glm::vec4 color);
+	void setEmission(glm::vec4 color);
+	void setShininess(float p);
+
+	bool isTransparent();
+
+	// загрузка параметров материала из внешнего текстового файла
+	void load(const char* filename);
+	void MaterialParse(rapidjson::Value& node);
+
+	// установка всех параметров материала
+	void apply();
+
+private:
+	// фоновая составляющая
+	glm::vec4 ambient;
+	// диффузная составялющая
+	glm::vec4 diffuse;
+	// зеркальная составляющая
+	glm::vec4 specular;
+	// самосвечение
+	glm::vec4 emission;
+	// степень отполированности
+	float shininess;
+	bool transparent;
+};
+
+<======= CPP =======>
+
+#include "Material.h"
+
+MaterialB::MaterialB()
+{
+	setAmbient(vec4(1.0, 0.0, 0.0, 1.0));
+	setDiffuse(vec4(0.4, 0.0, 0.0, 1.0));
+	setSpecular(vec4(1.0, 1.0, 1.0, 1.0));
+	setEmission(vec4(0.0, 0.0, 0.0, 1.0));
+	setShininess(64.0f);
+	transparent = false;
+}
+
+MaterialB::MaterialB(MaterialB* otherMaterial)
+{
+	setAmbient(otherMaterial->ambient);
+	setDiffuse(otherMaterial->diffuse);
+	setSpecular(otherMaterial->specular);
+	setEmission(otherMaterial->emission);
+	setShininess(otherMaterial->shininess);
+	transparent = otherMaterial->transparent;
+}
+
+MaterialB::MaterialB(vec4 _ambient, vec4 _diffuse, vec4 _specular, vec4 _emission, float _shininess)
+{
+	ambient = _ambient;
+	diffuse = _diffuse;
+	specular = _specular;
+	emission = _emission;
+	shininess = _shininess;
+	transparent = (diffuse.a != 1.0f);
+}
+
+//Material::Material(rapidjson::Value& node)
+//{
+//	MaterialParse(node);
+//}
+
+void MaterialB::MaterialParse(rapidjson::Value& node)
+{
+	ambient = vec4(
+		node["ambient"][0].GetDouble(),
+		node["ambient"][1].GetDouble(),
+		node["ambient"][2].GetDouble(),
+		node["ambient"][3].GetDouble()
+	);
+
+	diffuse = vec4(
+		node["diffuse"][0].GetDouble(),
+		node["diffuse"][1].GetDouble(),
+		node["diffuse"][2].GetDouble(),
+		node["diffuse"][3].GetDouble()
+	);
+
+	specular = vec4(
+		node["specular"][0].GetDouble(),
+		node["specular"][1].GetDouble(),
+		node["specular"][2].GetDouble(),
+		node["specular"][3].GetDouble()
+	);
+
+	emission = vec4(
+		node["emission"][0].GetDouble(),
+		node["emission"][1].GetDouble(),
+		node["emission"][2].GetDouble(),
+		node["emission"][3].GetDouble()
+	);
+
+	shininess = node["shininess"].GetDouble();
+}
+
+MaterialB::MaterialB(const char* filename)
+{
+	load(filename);
+}
+
+void MaterialB::setAmbient(glm::vec4 color)
+{
+	ambient = color;
+}
+
+void MaterialB::setDiffuse(glm::vec4 color)
+{
+	diffuse = color;
+}
+
+void MaterialB::setSpecular(glm::vec4 color)
+{
+	specular = color;
+}
+
+void MaterialB::setEmission(glm::vec4 color)
+{
+	emission = color;
+}
+
+void MaterialB::setShininess(float p)
+{
+	shininess = p;
+}
+
+bool MaterialB::isTransparent()
+{
+	return transparent; // diffuse.a != 1.0f;
+}
+
+void MaterialB::load(const char* filename)
+{
+	std::ifstream ifs(filename);
+	if (!ifs.is_open())
+	{
+		std::cerr << "Couldn't open file " << filename << "for reading \n";
+		return;
+	}
+
+	//Read from file
+	rapidjson::IStreamWrapper isw(ifs);
+	rapidjson::Document doc;
+	doc.ParseStream(isw);
+	rapidjson::StringBuffer buffer;
+	rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+	doc.Accept(writer);
+
+	if (doc.HasParseError())
+	{
+		std::cerr << "Filename: " << filename << "\n";
+		std::cerr << "Parse error: " << doc.GetParseError() << "\n Offset: " << doc.GetErrorOffset() << "\n";
+		return;
+	}
+
+	MaterialParse(doc);
+
+	//ambient = vec4(
+	//	doc["ambient"][0].GetDouble(),
+	//	doc["ambient"][1].GetDouble(),
+	//	doc["ambient"][2].GetDouble(),
+	//	doc["ambient"][3].GetDouble()
+	//);
+
+	//diffuse = vec4(
+	//	doc["diffuse"][0].GetDouble(),
+	//	doc["diffuse"][1].GetDouble(),
+	//	doc["diffuse"][2].GetDouble(),
+	//	doc["diffuse"][3].GetDouble()
+	//);
+
+	//specular = vec4(
+	//	doc["specular"][0].GetDouble(),
+	//	doc["specular"][1].GetDouble(),
+	//	doc["specular"][2].GetDouble(),
+	//	doc["specular"][3].GetDouble()
+	//);
+
+	//emission = vec4(
+	//	doc["emission"][0].GetDouble(),
+	//	doc["emission"][1].GetDouble(),
+	//	doc["emission"][2].GetDouble(),
+	//	doc["emission"][3].GetDouble()
+	//);
+
+	//shininess = doc["shininess"].GetDouble();
+
+	//Debug
+	//std::string json_str(buffer.GetString());
+	//std::cout << json_str.c_str() << "\n";
+
+	//Close the file
+	ifs.close();
+}
+
+void MaterialB::apply()
+{
+	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, glm::value_ptr(ambient));
+	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, glm::value_ptr(diffuse));
+	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, glm::value_ptr(specular));
+	glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, glm::value_ptr(emission));
+	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, shininess);
+}
